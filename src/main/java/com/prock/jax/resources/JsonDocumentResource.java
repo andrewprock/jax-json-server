@@ -26,18 +26,18 @@ public class JsonDocumentResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonDocumentResource.class);
 
     // The document resource pulls it's documents out of mongo.
-	private Mongo mongo;
-	private DB db;
+    private Mongo mongo;
+    private DB db;
     DBCollection collection;
 
-    public JsonDocumentResource(String host, int port, String database, String inputCollection) {
-		try {
-			this.mongo = new Mongo(host, port);
-			this.db = mongo.getDB(database);
-            this.collection = db.getCollection(inputCollection);
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		}
+    public JsonDocumentResource(String host, int port, String database, String collection) {
+        try {
+            this.mongo = new Mongo(host, port);
+            this.db = mongo.getDB(database);
+            this.collection = db.getCollection(collection);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
     }
 
     // Retrieve document from mongo based on field/value

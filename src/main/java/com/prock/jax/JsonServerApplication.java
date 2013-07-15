@@ -4,6 +4,7 @@ import com.codahale.dropwizard.Application;
 import com.codahale.dropwizard.setup.Bootstrap;
 import com.codahale.dropwizard.setup.Environment;
 import com.prock.jax.resources.*;
+import com.prock.jax.health.*;
 
 public class JsonServerApplication extends Application<JsonServerConfiguration> {
     public static void main(String[] args) throws Exception {
@@ -23,6 +24,13 @@ public class JsonServerApplication extends Application<JsonServerConfiguration> 
     @Override
     public void run(JsonServerConfiguration configuration,
                     Environment environment) throws ClassNotFoundException {
-        environment.jersey().register(new JsonDocumentResource("localhost", 27017, "mydb", "testData"));
+
+        environment.healthChecks().register("mongodb", new MongoHealthCheck(configuration.getDatabaseHost(),
+                                                                            configuration.getDatabasePort(),
+                                                                            configuration.getCollection()));
+        environment.jersey().register(new JsonDocumentResource(configuration.getDatabaseHost(), 
+                                                               configuration.getDatabasePort(),
+                                                               configuration.getDatabaseName(),
+                                                               configuration.getCollection()));
     }
 }
