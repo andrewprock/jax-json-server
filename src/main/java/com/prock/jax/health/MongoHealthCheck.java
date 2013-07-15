@@ -15,10 +15,12 @@ public class MongoHealthCheck extends HealthCheck {
         this.collection = collection;
     }
 
+    /**
+     * To check the health of the MongoDB, it suffices to query for the
+     * database names.  An exeption is thrown if the database is offline.
+     */
     @Override
     protected Result check() throws Exception {
-        // To check MongoDB, it suffices to query for the dtabase names.
-        // An exeption is thrown if the database is offline.
         Mongo mongo = new Mongo(host, port);
         mongo.getDatabaseNames();
         return Result.healthy();

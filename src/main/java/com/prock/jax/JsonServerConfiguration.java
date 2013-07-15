@@ -22,7 +22,6 @@ public class JsonServerConfiguration extends Configuration {
         return databaseHost;
     }
 
-    //@JsonProperty
     public int getDatabasePort() {
         return 27017;
     }

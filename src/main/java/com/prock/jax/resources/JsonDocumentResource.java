@@ -40,7 +40,14 @@ public class JsonDocumentResource {
         }
     }
 
-    // Retrieve document from mongo based on field/value
+    /**
+     * Retrieve a document from MondoDB.
+     *
+     * @param field             the field to query
+     * @param value             the value of the field queried
+     *
+     * MongoDB is quried for a docuemnt with the specified field=value.
+     */
     public String retrieveJson(String field, Object value) {
         BasicDBObject fields = new BasicDBObject();
         fields.put(field, value);
